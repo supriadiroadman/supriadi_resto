@@ -226,7 +226,6 @@ class ProductController extends Controller
 
     public function export($catid)
     {
-        // return Excel::download(new ProductExport, 'products.xlsx');
         return Excel::download(new ProductExport($catid), 'products.xlsx');
     }
 
