@@ -30,6 +30,7 @@
 
                     <div class="col-auto form-group">
                         <a class="btn btn-primary" href="{{ route('products.create') }}">Tambah Produk</a>
+                        <a class="btn btn-primary" href="{{ route('product.export') }}">Export to Excel</a>
                     </div>
 
                 </div>

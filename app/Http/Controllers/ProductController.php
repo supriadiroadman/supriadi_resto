@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Category;
+use App\Exports\ProductExport;
+use App\Exports\UsersExport;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Database\Eloquent\Builder;
 
 class ProductController extends Controller
@@ -218,5 +221,10 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')->with('success', "Berhasil Menghapus Produk " .
             substr($product->title, 0, 20) . " ...");
+    }
+
+    public function export()
+    {
+        return Excel::download(new ProductExport, 'products.xlsx');
     }
 }

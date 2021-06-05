@@ -32,3 +32,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('products', 'ProductController');
+
+Route::get('product/export', 'ProductController@export')->name('product.export');
