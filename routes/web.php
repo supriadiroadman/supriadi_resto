@@ -33,4 +33,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('products', 'ProductController');
 
-Route::get('product/export', 'ProductController@export')->name('product.export');
+Route::get('product/export/{catid}', 'ProductController@export')->name('product.export');
+Route::get('product/export_xml/{catid}', 'ProductController@export_xml')->name('product.export_xml');

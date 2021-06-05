@@ -3,15 +3,24 @@
 namespace App\Exports;
 
 use App\Product;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Illuminate\Database\Eloquent\Builder;
+use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\FromQuery;
 
-class ProductExport implements FromCollection
+class ProductExport implements FromQuery
 {
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function collection()
+    public function __construct($catid)
     {
-        return Product::all();
+        $this->catid = $catid;
+    }
+
+    use Exportable;
+
+
+    public function query()
+    {
+        return Product::query()->whereHas('categories', function (Builder $query) {
+            $query->where('id', $this->catid);
+        });
     }
 }

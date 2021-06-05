@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Product;
 use App\Category;
 use App\Exports\ProductExport;
+use App\Exports\ProductExportXML;
 use App\Exports\UsersExport;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -223,8 +224,21 @@ class ProductController extends Controller
             substr($product->title, 0, 20) . " ...");
     }
 
-    public function export()
+    public function export($catid)
     {
-        return Excel::download(new ProductExport, 'products.xlsx');
+        // return Excel::download(new ProductExport, 'products.xlsx');
+        return Excel::download(new ProductExport($catid), 'products.xlsx');
+    }
+
+    public function export_xml($catid)
+    {
+        // dd($catid);
+        // return Excel::download(new ProductExportXML, 'products.xml');
+        // return (new ProductExportXML)->download('invoices.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+        // return (new ProductExportXML)->download('product.xml', \Maatwebsite\Excel\Excel::XML);
+        // return (new ProductExportXML)->download('invoices.xlsx');
+        // return (new ProductExportXML)->download('invoices.xml', \Maatwebsite\Excel\Excel::XML);
+        // return (new ProductExportXML)->download('invoices.xml', \Maatwebsite\Excel\Excel::DOMPDF);
+        return Excel::download(new ProductExportXML($catid), 'peserta_query.xlsx');
     }
 }
