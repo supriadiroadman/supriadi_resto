@@ -14,6 +14,10 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -29,11 +33,11 @@ class ProductController extends Controller
         } elseif (request()->category_id) {
             $products = Product::whereHas('categories', function (Builder $query) {
                 $query->where('id', request()->category_id);
-            })->paginate(2);
+            })->paginate(4);
         } elseif (request()->jumlah_data) {
             $products = Product::paginate(request()->jumlah_data);
         } else {
-            $products = Product::paginate(2);
+            $products = Product::orderBy('id', 'DESC')->paginate(4);
         }
         $categories = Category::all();
         return view('products.index', compact('products', 'categories'));
